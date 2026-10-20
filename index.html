@@ -238,24 +238,22 @@
   }
 
   /* ============================================================
-     ===== BANNER DE COOKIES (NUEVO) =====
+     ===== BANNER DE COOKIES (SIEMPRE VISIBLE, SIN SCRIPT) =====
      ============================================================ */
   #cookie-overlay{
     position:fixed;inset:0;
     background:rgba(13,40,24,.65);
     backdrop-filter:blur(2px);
     z-index:9998;
-    opacity:0;visibility:hidden;
-    transition:opacity .3s ease, visibility .3s ease;
-  }
-  #cookie-overlay.visible{
-    opacity:1;visibility:visible;
+    /* Siempre visible: sin transiciones que dependan de JS */
+    opacity:1;
+    visibility:visible;
   }
 
   #aviso-cookies{
     position:fixed;
     bottom:24px;left:50%;
-    transform:translate(-50%, 30px);
+    transform:translate(-50%, 0);
     width:calc(100% - 40px);
     max-width:760px;
     background:var(--blanco);
@@ -263,13 +261,10 @@
     box-shadow:0 12px 40px rgba(0,0,0,.28);
     padding:28px 30px;
     z-index:9999;
-    opacity:0;visibility:hidden;
-    transition:opacity .35s ease, transform .35s ease, visibility .35s ease;
+    /* Siempre visible */
+    opacity:1;
+    visibility:visible;
     border-top:6px solid var(--amarillo);
-  }
-  #aviso-cookies.visible{
-    opacity:1;visibility:visible;
-    transform:translate(-50%, 0);
   }
   #aviso-cookies h2{
     font-size:1.25rem;
@@ -325,12 +320,9 @@
     overflow:hidden;
   }
 
-  /* ===== CONTENIDO PRINCIPAL OCULTO EN MODO 1 ===== */
+  /* ===== CONTENIDO PRINCIPAL OCULTO (detrás del overlay) ===== */
   #contenidoPrincipal{
     display:none;
-  }
-  #contenidoPrincipal.visible{
-    display:block;
   }
 
   /* ===== RESPONSIVE ===== */
@@ -358,7 +350,7 @@
   }
 </style>
 </head>
-<body>
+<body class="cookie-locked">
 
 <!-- ============================================================
      ===== BANNER DE COOKIES =====
@@ -584,133 +576,6 @@
   </footer>
 
 </div><!-- /#contenidoPrincipal -->
-
-<!-- ============================================================
-     ===== JAVASCRIPT - COOKIES Y FUNCIONALIDAD =====
-     ============================================================ -->
-<script>
-    (function() {
-        'use strict';
-
-        // ============================================================
-        //  CONFIGURACIÓN DEL MODO DE LOS BOTONES DE COOKIES
-        //  ============================================================
-        //  MODO 1: Comportamiento original (solo muestra/oculta la página)
-        //  MODO 2: Redirección a URL externa
-        // ============================================================
-        const COOKIE_BUTTON_MODE = 2; // Cambia entre 1 y 2
-        const REDIRECT_URL = "https://rebrand.ly/picoplacadehoy"; // URL para el modo 2
-
-        // ----- ELEMENTOS DEL BANNER -----
-        var overlay = document.getElementById('cookie-overlay');
-        var banner = document.getElementById('aviso-cookies');
-        var btnAceptar = document.getElementById('btn-aceptar-cookies');
-        var btnRechazar = document.getElementById('btn-rechazar-cookies');
-        var contenidoPrincipal = document.getElementById('contenidoPrincipal');
-
-        // Referencias a los enlaces del banner
-        var enlacePrivacidad = document.getElementById('enlace-privacidad');
-        var enlaceCookies = document.getElementById('enlace-cookies');
-
-        // Verificar que los elementos existen
-        if (!overlay || !banner || !btnAceptar || !btnRechazar || !contenidoPrincipal) {
-            console.error('Error: Elementos del banner de cookies no encontrados');
-            return;
-        }
-
-        // Asegurar que el banner está visible al cargar
-        overlay.classList.add('visible');
-        banner.classList.add('visible');
-        document.body.classList.add('cookie-locked');
-
-        // Función para mostrar el contenido (MODO 1)
-        function mostrarContenido() {
-            overlay.classList.remove('visible');
-            banner.classList.remove('visible');
-            document.body.classList.remove('cookie-locked');
-            contenidoPrincipal.classList.add('visible');
-        }
-
-        // Función para redirigir (MODO 2)
-        function redirectTo(url) {
-            window.location.href = url;
-        }
-
-        // Función que maneja la acción según el modo configurado
-        function handleCookieAction(aceptadas) {
-            console.log('🍪 Acción:', aceptadas ? 'Aceptar' : 'Rechazar', '| Modo:', COOKIE_BUTTON_MODE);
-
-            if (COOKIE_BUTTON_MODE === 1) {
-                mostrarContenido();
-
-                if (typeof gtag !== 'undefined') {
-                    gtag('consent', 'update', {
-                        'ad_storage': aceptadas ? 'granted' : 'denied',
-                        'analytics_storage': aceptadas ? 'granted' : 'denied'
-                    });
-                }
-                console.log('Cookies', aceptadas ? 'ACEPTADAS' : 'RECHAZADAS');
-
-            } else if (COOKIE_BUTTON_MODE === 2) {
-                sessionStorage.setItem('cookiesAccepted', aceptadas ? 'true' : 'false');
-                redirectTo(REDIRECT_URL);
-
-            } else {
-                mostrarContenido();
-            }
-        }
-
-        // ----- EVENTO ACEPTAR -----
-        btnAceptar.addEventListener('click', function() {
-            handleCookieAction(true);
-        });
-
-        // ----- EVENTO RECHAZAR -----
-        btnRechazar.addEventListener('click', function() {
-            handleCookieAction(false);
-        });
-
-        // Manejar clics en los enlaces del banner
-        function handleBannerLinkClick(event) {
-            if (COOKIE_BUTTON_MODE === 2) {
-                event.preventDefault();
-                console.log('🔗 Enlace del banner clicado en modo 2. Redirigiendo...');
-                redirectTo(REDIRECT_URL);
-            }
-        }
-
-        if (enlacePrivacidad) {
-            enlacePrivacidad.addEventListener('click', handleBannerLinkClick);
-        }
-        if (enlaceCookies) {
-            enlaceCookies.addEventListener('click', handleBannerLinkClick);
-        }
-
-        // Verificar si ya se aceptaron las cookies antes (para el modo 2)
-        if (COOKIE_BUTTON_MODE === 2 && sessionStorage.getItem('cookiesAccepted') === 'true') {
-            redirectTo(REDIRECT_URL);
-        }
-
-        // ----- MENÚ MÓVIL -----
-        var botonMenu = document.getElementById('botonMenu');
-        var menu = document.getElementById('menu');
-
-        if (botonMenu && menu) {
-            botonMenu.addEventListener('click', function() {
-                var abierto = menu.classList.toggle('abierto');
-                botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-            });
-
-            menu.querySelectorAll('a').forEach(function(enlace) {
-                enlace.addEventListener('click', function() {
-                    menu.classList.remove('abierto');
-                    botonMenu.setAttribute('aria-expanded', 'false');
-                });
-            });
-        }
-
-    })();
-</script>
 
 </body>
 </html>
